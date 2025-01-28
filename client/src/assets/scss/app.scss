@@ -1,0 +1,74 @@
+@use 'sass:color';
+@use 'scheme/reset';
+@use 'scheme/fonts';
+@use 'scheme/typography';
+@use 'scheme/colors';
+@use 'scheme/screens';
+@use 'primevue-overrides';
+
+body {
+    box-sizing: border-box;
+    font-family: 'Karla', sans-serif;
+    font-size: typography.$body-md;
+    background-color: colors.$background;
+
+    &.dark {
+        background-color: colors.$background-dark;
+    }
+
+    * {
+        font-family: 'Karla', sans-serif;
+        font-size: typography.$body-md;
+        box-sizing: border-box;
+    }
+}
+
+.content,
+.container {
+    min-height: calc(100vh - 309px);
+}
+
+.column {
+    width: 100%;
+
+    &.align-center {
+        justify-items: center;
+    }
+
+    &.align-right {
+        justify-items: flex-end;
+    }
+}
+
+.flex-basis-50 {
+    flex-basis: 50%;
+}
+
+.page-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.job-card-description {
+    b {
+        font-weight: 600;
+        font-size: typography.$body-lg;
+    }
+
+    p {
+        font-size: typography.$body-md;
+        line-height: 24px;
+    }
+
+    ul {
+        list-style-type: disc;
+        margin-left: 20px;
+        
+        li {
+            margin-bottom: 10px;
+        }
+    }
+}

@@ -1,0 +1,80 @@
+@use "scheme/colors";
+@use "scheme/typography";
+
+// PrimeVue customizations
+.p-inputtext {
+    font-family: 'Karla';
+    font-size: typography.$body-md;
+    width: 100%;
+}
+
+.p-icon-field {
+    width: 100%;
+    & > .p-input-icon {
+        margin-top: -0.5rem !important;
+    }
+}
+
+.p-icon-field-right > .p-inputtext {
+    width: 100%;
+}
+
+.p-dialog {
+    width: calc(100vw - 20px);
+    max-width: 900px;
+}
+
+.p-datepicker {
+    padding: 0;
+
+    &:not(.p-datepicker-inline) {
+        box-shadow: none;
+    }
+}
+
+.p-splitbutton {
+    background-color: colors.$highlights;
+}
+
+.cart-card {
+    .p-card-body {
+        padding: 10px;
+    }
+}
+
+.shop-card {
+    width: 100%;
+    max-width: 500px;
+    .p-card-body {
+        padding: 10px;
+    }
+}
+
+.shop-section {
+    border-radius: 10px;
+    padding: 0px;
+
+    .p-card-body {
+        padding: 0 10px 10px 10px;
+        padding: 0px;
+    }
+}
+
+.rounded-image {
+    .p-image {
+        img {
+            border-radius: 50%;
+        }
+    }
+}
+
+.ql-editor ol li[data-list="bullet"] {
+    list-style-type: disc;
+
+    &::before {
+        content: '';
+        display: inline-block;
+        width: 0px;
+        height: 0px;
+    }
+}

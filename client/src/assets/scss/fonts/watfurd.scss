@@ -1,0 +1,140 @@
+@use "sass:string";
+/*--------------------------------
+
+Watfurd icon font
+Generated using nucleoapp.com
+
+-------------------------------- */
+
+$icon-font-path: "fonts/icons" !default;
+
+@font-face {
+  font-family: 'Watfurd';
+  src: url('#{$icon-font-path}/Watfurd.eot');
+  src: url('#{$icon-font-path}/Watfurd.eot') format('embedded-opentype'),
+       url('#{$icon-font-path}/Watfurd.woff2') format('woff2'),
+       url('#{$icon-font-path}/Watfurd.woff') format('woff'),
+       url('#{$icon-font-path}/Watfurd.ttf') format('truetype'),
+       url('#{$icon-font-path}/Watfurd.svg') format('svg');
+}
+
+/* base class */
+.icon {
+  display: inline-block;
+  font: normal normal normal 1em/1 'Watfurd';
+  color: inherit;
+  flex-shrink: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* size examples - relative units */
+.icon-sm {
+  font-size: 0.8em;
+}
+
+.icon-lg {
+  font-size: 1.2em;
+}
+
+/* size examples - absolute units */
+.icon-16 {
+  font-size: 16px;
+}
+
+.icon-32 {
+  font-size: 32px;
+}
+
+/* rotate the icon infinitely */
+.icon-is-spinning {
+  animation: icon-spin 1s infinite linear;
+}
+
+@keyframes icon-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* transform */
+.icon-rotate-90  {
+	transform: rotate(90deg);
+}
+
+.icon-rotate-180 {
+	transform: rotate(180deg);
+}
+
+.icon-rotate-270 {
+	transform: rotate(270deg);
+}
+
+.icon-flip-y {
+	transform: scaleY(-1);
+}
+
+.icon-flip-x {
+	transform: scaleX(-1);
+}
+
+/* icons */
+$icons: (
+  'home': 'ea03',
+  'bookmark': 'ea04',
+  'bookmark-filled': 'ea05',
+  'shop': 'ea06',
+  'favorite': 'ea07',
+  'favorite-filled': 'ea08',
+  'edit': 'ea09',
+  'settings': 'ea0a',
+  'translate': 'ea0b',
+  'bag': 'ea0d',
+  'bin-1': 'ea0e',
+  'store': 'ea0f',
+  'search': 'ea10',
+  'user': 'ea11',
+  'cart': 'ea12',
+  'sale': 'ea13',
+  'dashboard': 'ea17',
+  'finances': 'ea18',
+  'storage-unit': 'ea19',
+  'analytics': 'ea1a',
+  'customers': 'ea1b',
+  'inventory': 'ea1c',
+  'orders': 'ea1d',
+  'address': 'ea1e',
+  'wallet': 'ea1f',
+  'market': 'ea20',
+  'tag': 'ea23',
+  'upload': 'ea24',
+  'download': 'ea25',
+  'menu': 'ea26',
+  'arrow-right': 'ea27',
+  'left-arrow': 'ea28',
+  'check-single': 'ea29',
+  'floppy-disk': 'ea2a',
+  'data-upload': 'ea2b',
+  'rotate-right': 'ea2c',
+  'three-dimensional-world': 'ea2d',
+  'credit-card-lock': 'ea2e',
+  'up-arrow': 'ea2f',
+  'down-arrow': 'ea30',
+  'block-up': 'ea31',
+  'block-down': 'ea32',
+  'block-right': 'ea33',
+  'block-left': 'ea34',
+);
+
+@function unicode($str) {
+  @return string.unquote("\"\\#{$str}\"");
+}
+
+@each $name, $code in $icons {
+  .icon-#{""+$name}::before {
+    content: unicode($code);
+  }
+}

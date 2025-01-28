@@ -1,0 +1,44 @@
+@use 'sass:color';
+
+// Social Media
+// $brand-google: #db4437;
+
+// $brand-colors: (
+//     'google': $brand-google,
+// );
+
+// Utility Colors
+$warning-color: #d19302;
+$danger-color: #c52f00;
+$success-color: #1aa179;
+$info-color: #6ec6f7;
+
+$white: #fff;
+$background-dark: #282828;
+$background: #c7cbd1;
+$grey: #3a3d42;
+$primary-text: #3a3d42;
+$secondary-text: #aeb9a8;
+$primary-buttons: #b25a36;
+$secondary-buttons: #d9c9a5;
+$highlights: #f5f5f2;
+$text-light: #f5f5f2;
+
+$primary-color: $primary-buttons;
+
+
+.bg-primary {
+    background-color: $background !important;
+}
+
+.bg-secondary {
+    background-color: $secondary-text;
+}
+
+.text-grey {
+    color: $grey;
+}
+
+.text-muted {
+    color: color.adjust($primary-text, $lightness: 60%);
+}
