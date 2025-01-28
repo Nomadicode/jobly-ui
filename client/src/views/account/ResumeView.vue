@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, inject } from 'vue'
-import { ApiData } from '@/types/ApiTypes'
-import { Resume, ResumeLink } from '@/types/Resume'
+import { ApiData } from '@/types/ApiTypes.ts'
+import { Resume, ResumeLink } from '@/types/Resume.ts'
 import { useDialog } from 'primevue/usedialog'
 import { useToast } from 'primevue/usetoast'
 
