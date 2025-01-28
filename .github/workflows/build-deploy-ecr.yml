@@ -1,0 +1,58 @@
+name: Build and Deploy to ECR
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  workflow_dispatch:
+
+env:
+  AWS_REGION: ${{ vars.AWS_REGION }}
+  ECR_REPOSITORY: ${{ vars.ECR_REPOSITORY }}
+  VERSION: "${{ vars.VERSION }}"
+
+jobs:
+  build-and-push:
+    name: Build and Push to ECR
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Build and push Docker image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        IMAGE_TAG: ${{ env.VERSION }}
+      run: |
+        if [ "${{ github.ref }}" = "refs/heads/develop" ]; then
+          # For develop branch
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG-stg \
+            -f devops/Dockerfile.prod .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG-stg
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG-stg $ECR_REGISTRY/$ECR_REPOSITORY:latest-stg
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest-stg
+        else
+          # For main branch
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
+            -f devops/Dockerfile.prod .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+        fi
+    - name: Log deployment
+      run: |
+        echo "Successfully pushed image to ECR with tag ${{ env.VERSION }}"
+
