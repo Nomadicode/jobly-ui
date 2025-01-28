@@ -1,0 +1,36 @@
+name: Run Tests and Type Checking
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Run Tests and Type Check
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Build Docker image
+      run: |
+        docker build -t jobly-ui-test -f devops/Dockerfile.dev .
+        
+    - name: Run Type Checking
+      run: |
+        docker run --rm jobly-ui-test npm run type-check
+        
+    - name: Run Tests
+      run: |
+        docker run --rm jobly-ui-test npm run test:unit
